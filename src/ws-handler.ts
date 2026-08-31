@@ -560,7 +560,7 @@ export class WsHandler {
         }
 
         // Make sure the event name length is not too big.
-        if (event.length > ws.getUserData().app.maxEventNameLength) {
+        if (event.length > Number(ws.getUserData().app.maxEventNameLength)) {
             let broadcastMessage = {
                 event: 'pusher:error',
                 channel,

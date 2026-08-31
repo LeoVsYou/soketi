@@ -22,7 +22,7 @@ export class PresenceChannelManager extends PrivateChannelManager {
      */
     join(ws: WebSocket<UserDataInterface>, channel: string, message?: PusherMessage): Promise<JoinResponse> {
         return this.server.adapter.getChannelMembersCount(ws.getUserData().app.id, channel).then(membersCount => {
-            if (membersCount + 1 > ws.getUserData().app.maxPresenceMembersPerChannel) {
+            if (membersCount + 1 > Number(ws.getUserData().app.maxPresenceMembersPerChannel)) {
                 return {
                     success: false,
                     ws,
@@ -36,7 +36,7 @@ export class PresenceChannelManager extends PrivateChannelManager {
 
             let memberSizeInKb = Utils.dataToKilobytes(member.user_info);
 
-            if (memberSizeInKb > ws.getUserData().app.maxPresenceMemberSizeInKb) {
+            if (memberSizeInKb > Number(ws.getUserData().app.maxPresenceMemberSizeInKb)) {
                 return {
                     success: false,
                     ws,
